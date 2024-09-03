@@ -1,0 +1,9 @@
+.popup-container {
+    width: 350px;
+    height: 450px;
+    background-color: white;
+    overflow-y: auto;
+  }
+  .popup-container::-webkit-scrollbar {
+    display: none;
+}

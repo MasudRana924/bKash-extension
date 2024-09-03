@@ -1,0 +1,27 @@
+.auth-placeholder::placeholder{
+  color: #E2136E;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 450px;
+  background-color: rgba(0, 0, 0, 0.04);
+  /* opacity: 0.2; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  /* background-color: white; */
+  /* padding: 20px; */
+  /* border-radius: 8px; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+}
+
+.popup button {
+  margin-top: 10px;
+}

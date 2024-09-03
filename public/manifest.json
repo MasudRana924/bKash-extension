@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "bKash PGW",
+  "version": "1.0",
+  "description": "A bKash webhook solution",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "permissions": ["activeTab", "notifications", "storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
