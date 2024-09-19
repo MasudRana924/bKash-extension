@@ -32,7 +32,6 @@ const TransactionList = () => {
       console.warn("Text-to-speech not supported in this browser.");
     }
   };
-  console.log("data", data);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -90,27 +89,6 @@ const TransactionList = () => {
       localStorage.setItem("lastTransactionId", newTransaction.trx_id);
     }
   }, [newTransaction, isNotificationEnabled, isSpeakEnabled]);
-  useEffect(() => {
-    if (window.chrome && window.chrome.runtime) {
-      window.chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.action === 'sendNotification') {
-          const notificationMessage = `You got a payment of ${request.amount} taka`;
-          if (isNotificationEnabled) {
-            addNotification({
-              title: "Payment",
-              message: notificationMessage,
-              native: true,
-            });
-          }
-          if (isSpeakEnabled) {
-            // playNotificationSound();
-            speakNotification(notificationMessage);
-          }
-        }
-      });
-    }
-  }, [isNotificationEnabled, isSpeakEnabled]);
-  localStorage.setItem("walletNo", walletNo);
   return (
     <div className="popup-container ">
       {loading ? (
