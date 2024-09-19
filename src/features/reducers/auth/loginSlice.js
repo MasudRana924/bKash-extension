@@ -22,6 +22,7 @@ export const loginSlice = createSlice({
     success: false,
     error: '',
     errorMessage: "",
+    response:false,
     loggeduser: [],
   },
   reducers: {
@@ -44,7 +45,7 @@ export const loginSlice = createSlice({
     builder.addCase(createLogin.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
-      // state.errorMessage = action.payload.message;
+      state.errorMessage = action.payload.message;
     });
   },
 });

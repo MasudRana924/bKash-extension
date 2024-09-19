@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "bKash PGW",
   "version": "1.0",
-  "description": "A bKash webhook solution",
+  "description": "A simple bKash PGW integration extension",
   "action": {
     "default_popup": "index.html",
     "default_icon": {
@@ -11,12 +11,11 @@
       "128": "icon.png"
     }
   },
-  "permissions": ["activeTab", "notifications", "storage"],
+  "permissions": ["activeTab", "notifications", "storage","background"],
   "background": {
     "service_worker": "background.js"
   },
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "host_permissions": [
+    "https://merchant-product-rnd.labs.bka.sh/*" 
+  ]
 }

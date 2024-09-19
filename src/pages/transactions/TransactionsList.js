@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import addNotification from "react-push-notification";
-import notificationSound from '../../assets/notificationsound.mpeg';
-
+import notificationSound from "../../assets/notificationsound.mpeg";
 import Lottie from "lottie-react";
 import preloaderAnimation from "../../assets/json/Animation - 1715745618808.json";
 import TransactionCard from "../../components/transactions/TransactionCard ";
-
 const TransactionList = () => {
   const walletNo = localStorage.getItem("wallet_no");
-  const [data, setData] = useState(JSON.parse(localStorage.getItem("transactionData")) || null);
+  const [data, setData] = useState(
+    JSON.parse(localStorage.getItem("transactionData")) || null
+  );
   const [loading, setLoading] = useState(!data);
-  const [lastTransactionId, setLastTransactionId] = useState(localStorage.getItem("lastTransactionId") || null);
+  const [lastTransactionId, setLastTransactionId] = useState(
+    localStorage.getItem("lastTransactionId") || null
+  );
   const [newTransaction, setNewTransaction] = useState(null);
   const isSpeakEnabled = useSelector(
     (state) => state.isConfigurationEnabled.isSpeakEnabled
@@ -21,11 +23,16 @@ const TransactionList = () => {
     (state) => state.isConfigurationEnabled.isNotificationEnabled
   );
 
-  const playNotificationSound = () => {
-    const audio = new Audio(notificationSound);
-    audio.play();
+  const speakNotification = (message) => {
+    if ("speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance(message);
+      utterance.lang = "en-US";
+      window.speechSynthesis.speak(utterance);
+    } else if (!("speechSynthesis" in window)) {
+      console.warn("Text-to-speech not supported in this browser.");
+    }
   };
-
+  console.log("data", data);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,7 +67,7 @@ const TransactionList = () => {
 
   useEffect(() => {
     if (newTransaction) {
-      const notificationMessage = `You got a payment of ${newTransaction.amount} from ${newTransaction.debit_msisdn}`;
+      const notificationMessage = `You got a payment of ${newTransaction.amount} taka`;
       const transactionTime = new Date(newTransaction.created_at).getTime();
       const currentTime = new Date().getTime();
       const timeDifference = currentTime - transactionTime;
@@ -72,10 +79,10 @@ const TransactionList = () => {
             message: notificationMessage,
             native: true,
           });
-          console.log("Notification:", notificationMessage);
         }
         if (isSpeakEnabled) {
-          playNotificationSound();
+          // playNotificationSound();
+          speakNotification(notificationMessage);
         }
       }
 
@@ -83,7 +90,27 @@ const TransactionList = () => {
       localStorage.setItem("lastTransactionId", newTransaction.trx_id);
     }
   }, [newTransaction, isNotificationEnabled, isSpeakEnabled]);
-
+  useEffect(() => {
+    if (window.chrome && window.chrome.runtime) {
+      window.chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        if (request.action === 'sendNotification') {
+          const notificationMessage = `You got a payment of ${request.amount} taka`;
+          if (isNotificationEnabled) {
+            addNotification({
+              title: "Payment",
+              message: notificationMessage,
+              native: true,
+            });
+          }
+          if (isSpeakEnabled) {
+            // playNotificationSound();
+            speakNotification(notificationMessage);
+          }
+        }
+      });
+    }
+  }, [isNotificationEnabled, isSpeakEnabled]);
+  localStorage.setItem("walletNo", walletNo);
   return (
     <div className="popup-container ">
       {loading ? (

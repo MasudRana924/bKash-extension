@@ -4,12 +4,14 @@ import axios from "axios";
 import TransactionCard from "../../components/transactions/TransactionCard ";
 import Lottie from "lottie-react";
 import preloaderAnimation from "../../assets/json/Animation - 1715745618808.json";
+import Navbar from "../../components/shared/Navbar";
+import { useLocation, useNavigate } from "react-router-dom";
 const SearchTransactions = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const walletNo = localStorage.getItem("wallet_no");
   const handleSearch = async () => {
     if (!phoneNumber) {
       setError("Please enter a phone number.");
@@ -25,6 +27,7 @@ const SearchTransactions = () => {
         {
           params: {
             customerWallet: phoneNumber,
+            merchantWallet:walletNo
           },
         }
       );
@@ -35,8 +38,31 @@ const SearchTransactions = () => {
       setLoading(false);
     }
   };
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleRecent=()=>{
+    navigate("/main");
+  }
   return (
     <div className="popup-container ">
+      <Navbar/>
+      <div className="w-full border-b bg-white flex justify-between">
+        <button
+          onClick={handleRecent}
+          style={{ color: location.pathname === "/main" || location.pathname === "/main" ? "#E2136E" : "gray"}}
+          className=" h-8 w-full"
+        >
+          Recent
+        </button>
+        <button
+          onClick={() => navigate("/search")}
+          style={{ color: location.pathname === "/search" ? "#E2136E" : "gray" }}
+          className=" h-8 w-full"
+        >
+          Search
+        </button>
+      </div>
       <div className="mt-4">
         <input
           type="text"

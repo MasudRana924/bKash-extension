@@ -1,35 +1,49 @@
-import React from "react";
+import React ,{useState,useEffect}from "react";
 import "./Main.css";
-import {  Outlet, useLocation, useNavigate } from "react-router-dom";
+import {useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../components/shared/Navbar";
+import RecentTransaction from "../transactions/RecentTransaction";
+import OnlineOfflineIndicator from './../../components/onlineofflineindicator/OnlineOfflineIndicator';
 const Dashboard = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const handleRecent=()=>{
-    navigate("/main/recent");
+    navigate("/main");
   }
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
   return (
     <div className="popup-container ">
       <Navbar />
+      {isOnline ? null : <OnlineOfflineIndicator />}
       <div className="w-full border-b bg-white flex justify-between">
         <button
           onClick={handleRecent}
-          style={{ color: location.pathname === "/main/recent" || location.pathname === "/main" ? "#E2136E" : "gray"}}
+          style={{ color: location.pathname === "/main" || location.pathname === "/main" ? "#E2136E" : "gray"}}
           className=" h-8 w-full"
         >
           Recent
         </button>
         <button
-          onClick={() => navigate("/main/search")}
-          style={{ color: location.pathname === "/main/search" ? "#E2136E" : "gray" }}
+          onClick={() => navigate("/search")}
+          style={{ color: location.pathname === "search" ? "#E2136E" : "gray" }}
           className=" h-8 w-full"
         >
           Search
         </button>
       </div>
-      <Outlet />
+      <RecentTransaction/>
     </div>
   );
 };
 
-export default Dashboard;
+export default Dashboard

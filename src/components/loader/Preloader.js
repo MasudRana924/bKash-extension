@@ -1,7 +1,7 @@
 import React from "react";
 import Lottie from "lottie-react";
-import preloaderAnimation from "../../json/Animation - 1715745618808.json";
-import logo from '../assets/bkash.svg'
+import preloaderAnimation from "../../assets/json/Animation - 1715745618808.json";
+import logo from '../../assets/bkash.svg'
 
 const Preloader = () => {
   return (

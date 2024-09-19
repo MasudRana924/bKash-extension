@@ -22,13 +22,15 @@ export const registerSlice = createSlice({
     success: false,
     error: '',
     wallet_no: '',
-    pin: ''
+    pin: '',
+    noresponse:false
   },
   reducers: {
     clearOTP: (state) => {
       state.isLoading = false;
       state.success = false;
-    }
+      state.noresponse=null
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(sendOTP.pending, (state) => {
@@ -44,6 +46,7 @@ export const registerSlice = createSlice({
     builder.addCase(sendOTP.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      state.noresponse=true
     });
   },
 });

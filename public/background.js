@@ -1,36 +1,43 @@
-function showNotification() {
+chrome.runtime.onInstalled.addListener(() => {
+  console.log("Background script running");
+  
+  // Retrieve wallet_no from Chrome's local storage
+  chrome.storage.local.get('walletNo', async (result) => {
+    if (result.walletNo) {
+      const walletNo = result.walletNo;
+      console.log("Wallet number retrieved:", walletNo);
+
+      // Show notification with walletNo
+      showNotification(walletNo);
+
+      // Fetch transaction data using walletNo
+      try {
+        const response = await fetch(
+          `https://merchant-product-rnd.labs.bka.sh/listener/WebhookListener/api/transaction?walletNo=${walletNo}`
+        );
+        const responseData = await response.json();
+        
+        console.log("Response data:", responseData.data);
+        if (responseData && responseData.data) {
+          console.log("Transaction data retrieved:", responseData.data);
+        }
+      } catch (error) {
+        console.error("Error fetching transaction data:", error);
+      }
+    } else {
+      console.log("No wallet number found in local storage.");
+    }
+  });
+});
+function showNotification(walletNo) {
   chrome.notifications.create({
     type: 'basic',
     iconUrl: 'icon.png',
     title: 'bKash Payment',
-    message: 'Hello, please open the extension!',
+    message: `Hello your wallet is  ${walletNo}!`,
     priority: 2
   });
 }
 
 // Run the notification every 10 seconds
-setInterval(showNotification, 1000);
-
-// Optional: To clear notifications automatically after some time
-chrome.notifications.onClicked.addListener(function(notificationId) {
-  chrome.notifications.clear(notificationId);
-});
-
-// Function to update the badge with the notification count
-function updateBadge(count) {
-chrome.action.setBadgeText({ text: count.toString() });
-chrome.action.setBadgeBackgroundColor({ color: '#ffffff' });
-chrome.action.setBadgeTextColor({ color: 'red' });
-}
-
-// Initialize notification count
-let notificationCount = 10;
-
-// Set the initial badge count
-updateBadge(notificationCount);
-
-// Simulate receiving a new notification every 10 seconds
-setInterval(() => {
-notificationCount++;
-updateBadge(notificationCount);
-}, 20000);
+setInterval(showNotification, 5000);

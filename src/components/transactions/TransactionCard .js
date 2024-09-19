@@ -1,10 +1,14 @@
 import React from "react";
-import { FiCopy } from "react-icons/fi";
 import { formatDate } from "../../utilities/helper";
 import avatar from "../../assets/avatar.png";
-const TransactionCard = ({ item }) => {
+const TransactionCard = ({ item}) => {
+  const currentTime = new Date().getTime();
+  const transactionTime = new Date(item.created_at).getTime();
+  const timeDifference = currentTime - transactionTime;
   return (
-    <div className="card col-span-12 md:col-span-3 gap-4 lg:col-span-4 2xl:col-span-3 ">
+    <div className={`card col-span-12 md:col-span-3 gap-4 lg:col-span-4 2xl:col-span-3 ${
+      timeDifference <= 5000 ? "bg-gray-100 text-black" : ""
+    }`}>
       <div className="text-start flex justify-between gap-5 border p-2">
         <div className="flex">
           <div>
@@ -30,7 +34,6 @@ const TransactionCard = ({ item }) => {
               <p className="  ml-2 text-gray-500" style={{ fontSize: 10 }}>
                 Trx ID : {item.trx_id}
               </p>
-              <FiCopy className=" text-violet-500 " style={{ fontSize: 10 }} />
             </div>
             <p className="text-xs text-start ml-2 text-gray-500">
               reference : {item.transaction_reference}
@@ -42,12 +45,12 @@ const TransactionCard = ({ item }) => {
             className="text-end text-green-500"
             style={{ fontSize: 10 }}
           >
-            + <span>{item.amount}.00 TK</span>
+            + <span>{item.amount}TK</span>
           </p>
-          <p className=" text-gray-500 text-end mt-1" style={{ fontSize: 10 }}>
+          {/* <p className=" text-gray-500 text-end mt-1" style={{ fontSize: 10 }}>
             Charge  0.00 TK
-          </p>
-          <p className="mb-2 text-gray-500 mt-1" style={{ fontSize: 8 }}>
+          </p> */}
+          <p className="mb-2 text-gray-500 mt-1" style={{ fontSize: 10 }}>
             {formatDate(item.created_at)}
           </p>
         </div>

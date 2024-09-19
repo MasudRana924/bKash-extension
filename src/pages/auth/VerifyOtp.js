@@ -1,31 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { IoMdArrowBack } from "react-icons/io";
+import { IoCheckmarkCircle ,IoWarning } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { verifyOTP } from "../../features/reducers/auth/verifyOTPSlice";
 import Lottie from "lottie-react";
 import preloaderAnimation from "../../assets/json/Animation - 1715745618808.json";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-const style = {
-  position: "absolute",
-  top: "30%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  maxWidth: 300,
-  bgcolor: "background.paper",
-  border: "2px solid white",
-  boxShadow: 24,
-  p: 1,
-  "@media (min-width: 600px)": {
-    width: 400,
-  },
-  "@media (min-width: 960px)": {
-    width: 400,
-  },
-};
 const VerifyOtp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -87,17 +68,14 @@ const VerifyOtp = () => {
     const data = { OTP, walletNo };
     dispatch(verifyOTP(data));
   };
-  const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
   useEffect(() => {
-    if (success || errorMessage) {
-      setOpen(true);
+    if (success) {
+      setTimeout(() => {
+        // navigate("/main/recent");
+        navigate("/main");
+      }, 1000); // navigate after 1 second
     }
-  }, [success, errorMessage]);
-  const handleGo = () => {
-    handleClose();
-    navigate("/main/recent");
-  };
+  }, [success, navigate]);
 
   return (
     <div className="popup-container flex-col justify-center items-center">
@@ -142,7 +120,7 @@ const VerifyOtp = () => {
                           style={{ color: digit ? "#E2136E" : "black" }}
                           placeholder="0"
                           required
-                          autoComplete="off" 
+                          autoComplete="off"
                         />
                       </div>
                     ))}
@@ -189,56 +167,40 @@ const VerifyOtp = () => {
           </div>
         )}
       </div>
-
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          {success ? (
-            <>
-              <p className="text-xl text-center mb-4 text-green-500">
-                Success!
-              </p>
-              <p className="text-md text-center mb-4 text-gray-500">
-                OTP verification is successful.
-              </p>
-              <div className="flex justify-center">
-                <button
-                  className="font-mono w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform"
-                  style={{ backgroundColor: "#E2136E" }}
-                  onClick={handleGo}
-                >
-                  Done
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className="w-full ">
-              <p
-                className="text-xl text-center mb-4 "
-                style={{ color: "#E2136E " }}
-              >
-                Warning!
-              </p>
-              <p className="text-xs text-start mb-4 text-gray-500">
-                {errorMessage}
-              </p>
-              <div className="flex justify-center w-full">
-                <button
-                  className="font-mono w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform"
-                  style={{ backgroundColor: "#E2136E" }}
-                  onClick={handleClose}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          )}
-        </Box>
-      </Modal>
+      {success ? (
+        <div className="flex justify-center items-center gap-2">
+        <IoCheckmarkCircle  style={{
+              color: "#16a34a",
+              fontSize: "15px",
+            }}/>
+          <p
+            style={{
+              color: "#16a34a",
+              fontSize: "12px",
+            }}
+          >
+            Verification Done
+          </p>
+        </div>
+      ) : errorMessage ? (
+        <div className="flex justify-center items-center gap-2">
+          <IoWarning 
+            style={{
+              color: "#E2136E",
+              fontSize: "15px",
+            }}
+          />
+          <p
+            style={{
+              color: "#E2136E",
+              fontSize: "12px",
+            }}
+          >
+            Verification Failed
+          </p>
+        </div>
+      ) : null}
+      
     </div>
   );
 };

@@ -37,7 +37,7 @@ const Navbar = () => {
             </p>
           </div>
         </div>
-        <div className="w-1/4 flex items-center justify-end mr-4 gap-8">
+        <div className="w-1/4 flex items-center justify-end  gap-2">
           <Link to="/configure">
             <CiSettings className="text-white text-xl" />
           </Link>
