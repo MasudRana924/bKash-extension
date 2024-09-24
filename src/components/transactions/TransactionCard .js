@@ -26,7 +26,7 @@ const TransactionCard = ({ item}) => {
               Make Payment
             </p>
             <p className="text-gray-500  ml-2">
-              <span style={{ color: "#E2136E", fontSize: 10 }}>
+              <span style={{ color: "#ff006e", fontSize: 10 }}>
                 {item.debit_msisdn}
               </span>
             </p>

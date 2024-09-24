@@ -54,24 +54,21 @@ const TransactionList = () => {
           setNewTransaction(firstTransactionData);
         }
       } catch (error) {
-        console.error(error);
         setLoading(false);
       }
     };
-
     fetchData();
-    const interval = setInterval(fetchData, 3000);
+    const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
   }, [walletNo, lastTransactionId]);
 
   useEffect(() => {
     if (newTransaction) {
-      const notificationMessage = `You got a payment of ${newTransaction.amount} taka`;
+      const notificationMessage = `You have received a payment of ${newTransaction.amount} taka from ${newTransaction.debitMsisdn}`;
       const transactionTime = new Date(newTransaction.created_at).getTime();
       const currentTime = new Date().getTime();
       const timeDifference = currentTime - transactionTime;
-
-      if (timeDifference <= 3000) {
+      if (timeDifference <= 5000) {
         if (isNotificationEnabled) {
           addNotification({
             title: "Payment",
@@ -89,6 +86,27 @@ const TransactionList = () => {
       localStorage.setItem("lastTransactionId", newTransaction.trx_id);
     }
   }, [newTransaction, isNotificationEnabled, isSpeakEnabled]);
+  useEffect(() => {
+    if (window.chrome && window.chrome.runtime) {
+      window.chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        if (request.action === 'sendNotification') {
+          const notificationMessage = `You got a payment of ${request.amount} taka`;
+          if (isNotificationEnabled) {
+            addNotification({
+              title: "Payment",
+              message: notificationMessage,
+              native: true,
+            });
+          }
+          if (isSpeakEnabled) {
+            // playNotificationSound();
+            speakNotification(notificationMessage);
+          }
+        }
+      });
+    }
+  }, [isNotificationEnabled, isSpeakEnabled]);
+  localStorage.setItem("walletNo", walletNo);
   return (
     <div className="popup-container ">
       {loading ? (
@@ -110,7 +128,7 @@ const TransactionList = () => {
             </div>
           ) : (
             <div className="mt-4">
-              <p className="text-center text-xl" style={{ color: "#E2136E" }}>
+              <p className="text-center text-xl" style={{ color: "#ff006e" }}>
                 Welcome{" "}
               </p>
               <p className="text-center text-sm text-gray-500">

@@ -28,14 +28,14 @@ const Dashboard = () => {
       <div className="w-full border-b bg-white flex justify-between">
         <button
           onClick={handleRecent}
-          style={{ color: location.pathname === "/main" || location.pathname === "/main" ? "#E2136E" : "gray"}}
+          style={{ color: location.pathname === "/main" || location.pathname === "/main" ? "#ff006e" : "gray"}}
           className=" h-8 w-full"
         >
           Recent
         </button>
         <button
           onClick={() => navigate("/search")}
-          style={{ color: location.pathname === "search" ? "#E2136E" : "gray" }}
+          style={{ color: location.pathname === "search" ? "#ff006e" : "gray" }}
           className=" h-8 w-full"
         >
           Search

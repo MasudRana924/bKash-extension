@@ -8,7 +8,6 @@ export const createLogin = createAsyncThunk(
       const response = await publicPost("/login", data);
       return response;
     } catch (err) {
-      console.log("error",err.response.data.message)
       return rejectWithValue(err.response.data.message);
 
     }

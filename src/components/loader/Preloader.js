@@ -5,7 +5,7 @@ import logo from '../../assets/bkash.svg'
 
 const Preloader = () => {
   return (
-    <div className=" popup-container flex justify-center items-center "style={{backgroundColor:'#E2136E'}}>
+    <div className=" popup-container flex justify-center items-center "style={{backgroundColor:'#ff006e'}}>
       <div>
         {/* <Lottie
           animationData={preloaderAnimation}

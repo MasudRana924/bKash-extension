@@ -29,8 +29,12 @@ const Register = () => {
     if (success) {
       navigate("/verify/otp");
       dispatch(clearOTP());
+    }if(error){
+      setTimeout(() => {
+        dispatch(clearOTP());
+      }, 2000); 
     }
-  }, [success, navigate, dispatch]);
+  }, [success, navigate, dispatch,error]);
 
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   useEffect(() => {
@@ -61,11 +65,11 @@ const Register = () => {
           </div>
         )}
         {error ? (
-          <div className="bg-red-500 h-10">
-            <div className="pt-2">
+          <div className=" h-10">
+            <div className="pt-4">
               <p
                 style={{
-                  color: "white",
+                  color: "red",
                   fontSize: "12px",
                 }}
               >
@@ -75,12 +79,12 @@ const Register = () => {
           </div>
         ) : null}
         <div className="w-3/4 mx-auto">
-          <div className="pt-8 mb-8">
+          <div className="pt-4 mb-8">
             <Link to="/">
               <p className="flex text-gray-500 text-sm gap-2">
                 <IoMdArrowBack
                   className="text-2xl"
-                  style={{ color: "#E2136E" }}
+                  style={{ color: "#ff006e" }}
                 />
               </p>
             </Link>
@@ -91,7 +95,7 @@ const Register = () => {
             Enter your wallet number{" "}
           </h2>
           <h2 className="text-sm text-gray-900 text-start ">
-            for <span style={{ color: "#E2136E " }}>onboard</span>
+            for <span style={{ color: "#ff006e " }}>onboard</span>
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="w-full mt-6">
@@ -109,7 +113,7 @@ const Register = () => {
             <div>
               <button
                 className=" mt-4 w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform "
-                style={{ backgroundColor: "#E2136E" }}
+                style={{ backgroundColor: "#ff006e" }}
                 disabled={!isOnline}
               >
                 Register

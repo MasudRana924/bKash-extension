@@ -29,7 +29,8 @@ export const registerSlice = createSlice({
     clearOTP: (state) => {
       state.isLoading = false;
       state.success = false;
-      state.noresponse=null
+      state.noresponse=null;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {

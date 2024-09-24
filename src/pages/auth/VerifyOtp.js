@@ -87,19 +87,19 @@ const VerifyOtp = () => {
                 <Link to="/">
                   <p
                     className="flex text-sm gap-2"
-                    style={{ color: "#E2136E" }}
+                    style={{ color: "#ff006e" }}
                   >
                     <IoMdArrowBack className=" text-xl" />
                   </p>
                 </Link>
               </div>
               <div className="pt-8">
-                <p className="text-xl " style={{ color: "#E2136E" }}>
+                <p className="text-xl " style={{ color: "#ff006e" }}>
                   Verification Code
                 </p>
                 <p className="text-xs pt-2 text-gray-500">
                   We have sent a code to{" "}
-                  <span style={{ color: "#E2136E" }}>{walletNo}</span>
+                  <span style={{ color: "#ff006e" }}>{walletNo}</span>
                 </p>
               </div>
             </div>
@@ -117,7 +117,7 @@ const VerifyOtp = () => {
                           value={digit}
                           onChange={(e) => handleChange(index, e.target.value)}
                           id={`otp-input-${index}`}
-                          style={{ color: digit ? "#E2136E" : "black" }}
+                          style={{ color: digit ? "#ff006e" : "black" }}
                           placeholder="0"
                           required
                           autoComplete="off"
@@ -131,7 +131,7 @@ const VerifyOtp = () => {
                         <button
                           onClick={handleResend}
                           className="text-xs"
-                          style={{ color: "#E2136E" }}
+                          style={{ color: "#ff006e" }}
                         >
                           Resend OTP
                         </button>
@@ -145,7 +145,7 @@ const VerifyOtp = () => {
                     <div>
                       <button
                         className=" mt-4 w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform "
-                        style={{ backgroundColor: "#E2136E" }}
+                        style={{ backgroundColor: "#ff006e" }}
                       >
                         Verify Account
                       </button>
@@ -186,13 +186,13 @@ const VerifyOtp = () => {
         <div className="flex justify-center items-center gap-2">
           <IoWarning 
             style={{
-              color: "#E2136E",
+              color: "#ff006e",
               fontSize: "15px",
             }}
           />
           <p
             style={{
-              color: "#E2136E",
+              color: "#ff006e",
               fontSize: "12px",
             }}
           >

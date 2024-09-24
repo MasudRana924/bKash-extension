@@ -4,11 +4,11 @@ import '../../pages/auth/Auth.css'
 const ErrorDisplay = ({ error }) => {
   console.log("err",error)
   return (
-     <div className="bg-red-500 h-10">
-            <div className="pt-2">
+     <div className=" h-10">
+            <div className="pt-4">
               <p
                 style={{
-                  color: "white",
+                  color: "red",
                   fontSize: "12px",
                 }}
               >

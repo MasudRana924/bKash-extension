@@ -19,11 +19,11 @@ const NotifactionConfigure = () => {
             </div>
             <div className='flex flex-col space-y-4 mt-4'>
             <div className=" flex items-center justify-between p-4 w-3/4 mx-auto h-16 bg-white ">
-                <p className='text-start' style={{color:'#E2136E '}}>Notification</p>
+                <p className='text-start' style={{color:'#ff006e '}}>Notification</p>
                 <CustomNotificationCheckbox/>
             </div>
             <div className=" flex items-center justify-between p-4 w-3/4 mx-auto h-16 bg-white ">
-                <p className='text-start' style={{color:'#E2136E '}}>Sound</p>
+                <p className='text-start' style={{color:'#ff006e '}}>Sound</p>
                 <CustomSoundCheckbox/>
             </div>
             </div> 
