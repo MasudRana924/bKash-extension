@@ -36,7 +36,7 @@ const TransactionList = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://merchant-product-rnd.labs.bka.sh/listener/WebhookListener/api/transaction",
+          "https://ext-poc.pgw-integration.bkash.com/WebhookListener/api/transaction",
           {
             params: { walletNo: walletNo },
           }

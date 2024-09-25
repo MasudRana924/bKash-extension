@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { verifyOTP } from "../../features/reducers/auth/verifyOTPSlice";
 import Lottie from "lottie-react";
 import preloaderAnimation from "../../assets/json/Animation - 1715745618808.json";
+import { sendOTP } from "../../features/reducers/auth/registerSlice";
 const VerifyOtp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,12 +44,7 @@ const VerifyOtp = () => {
     return () => clearInterval(interval);
   }, [timer]);
 
-  const handleResend = () => {
-    const newEndTime = new Date(new Date().getTime() + 60 * 1000);
-    localStorage.setItem("otpEndTime", newEndTime);
-    setTimer(60);
-    setCanResend(false);
-  };
+ 
 
   const handleChange = (index, value) => {
     if (/^[0-9]$/.test(value) || value === "") {
@@ -76,7 +72,13 @@ const VerifyOtp = () => {
       }, 1000); // navigate after 1 second
     }
   }, [success, navigate]);
-
+  const handleResend = () => {
+    const newEndTime = new Date(new Date().getTime() + 60 * 1000);
+    localStorage.setItem("otpEndTime", newEndTime);
+    setTimer(60);
+    setCanResend(false);
+    dispatch(sendOTP({ wallet_no: walletNo }));
+  };
   return (
     <div className="popup-container flex-col justify-center items-center">
       <div className="flex flex-col justify-center bg-gray-150">
@@ -111,7 +113,7 @@ const VerifyOtp = () => {
                     {otpString.map((digit, index) => (
                       <div key={index} className="w-16 h-16">
                         <input
-                          className="w-12 h-12 flex flex-col items-center justify-center text-center  outline-none rounded-xl border border-gray-200 text-md bg-white focus:bg-gray-50 focus:ring-1 ring-pink-500"
+                          className="w-12 h-12 flex flex-col items-center justify-center text-center  outline-none  border-b-2 border-gray-200 text-xl bg-white focus:border-b-2 focus:border-pink-500"
                           type="text"
                           maxLength="1"
                           value={digit}
@@ -136,9 +138,9 @@ const VerifyOtp = () => {
                           Resend OTP
                         </button>
                       ) : (
-                        <p className="text-pink-500 text-xs">
-                          Did not recieve your OTP{" "}
-                          {`0:${timer.toString().padStart(2, "0")}`}{" "}
+                        <p className="text-gray-500 text-xs">
+                          Resend after ? {" "}
+                         <span className="text-pink-500 text-xs"> {`00:${timer.toString().padStart(2, "0")}`}{" "}</span>
                         </p>
                       )}
                     </div>

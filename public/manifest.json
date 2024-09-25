@@ -21,6 +21,6 @@
     "service_worker": "background.js"
   },
   "host_permissions": [
-    "https://merchant-product-rnd.labs.bka.sh/*" 
+    "https://ext-poc.pgw-integration.bkash.com/*" 
   ]
 }

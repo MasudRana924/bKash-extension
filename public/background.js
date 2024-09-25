@@ -22,7 +22,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 
         try {
           const response = await fetch(
-            `https://merchant-product-rnd.labs.bka.sh/listener/WebhookListener/api/transaction?walletNo=${walletNo}`
+            `https://ext-poc.pgw-integration.bkash.com/WebhookListener/api/transaction?walletNo=${walletNo}`
           );
           const responseData = await response.json();
 

@@ -23,7 +23,7 @@ const SearchTransactions = () => {
 
     try {
       const response = await axios.get(
-        "https://merchant-product-rnd.labs.bka.sh/listener/WebhookListener/api/search-transaction",
+        "https://ext-poc.pgw-integration.bkash.com/WebhookListener/api/search-transaction",
         {
           params: {
             customerWallet: phoneNumber,

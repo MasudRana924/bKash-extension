@@ -18,7 +18,6 @@ const Login = () => {
     dispatch(sendOTP({ wallet_no: walletNo }));
     if (window.chrome && window.chrome.storage) {
       window.chrome.storage.local.set({ walletNo: walletNo }, () => {
-        console.log('Wallet number saved:', walletNo);
       });
     } else {
       console.error('Chrome API is not available.');
