@@ -16,7 +16,7 @@
     "48": "icon.png",
     "128": "icon.png"
   },
-  "permissions": ["activeTab", "notifications", "storage","background","alarms"],
+ "permissions": ["activeTab", "storage", "alarms", "notifications"],
   "background": {
     "service_worker": "background.js"
   },

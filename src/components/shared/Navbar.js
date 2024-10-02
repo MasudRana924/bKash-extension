@@ -18,14 +18,14 @@ const Navbar = () => {
   };
 
   return (
-    <div className="main-navbar h-16">
+    <div className="main-navbar h-12">
       <div className="flex justify-between ">
         <div className="flex  w-full ">
           <div className="w-16">
             <img
               src={avatar}
               alt=""
-              className="h-10 w-10 ml-2 mt-2 absolute border rounded-full border-pink-500 "
+              className="h-10 w-10 ml-2 mt-1 absolute border rounded-full "
             />
           </div>
           <div>

@@ -7,7 +7,7 @@ import { BsArrowLeft } from "react-icons/bs";
 const NotifactionConfigure = () => {
     return (
         <div className="popup-container ">
-            <div className="main-navbar h-16 flex items-center gap-4">
+            <div className="main-navbar h-12 flex items-center gap-4">
                 <div className=''>
                     <Link to='/main'>
                     <BsArrowLeft className='text-white text-xl ml-4'/>

@@ -13,6 +13,7 @@ const persistConfig = {
   storage,
 };
 const persistedReducer = persistReducer(persistConfig, loginReducer);
+
 // Root reducer with persisted reducer
 const rootReducer = combineReducers({
   userDetails: persistedReducer,
@@ -36,6 +37,7 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(middlewares),
+  devTools: false, // Disable Redux DevTools
 });
 
 export default store;
